@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>乳癌判斷病歷表</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <title>乳癌病例診斷</title>
   <style>
     body {
       font-family: "Microsoft JhengHei", sans-serif;
       background-color: #f9f9f9;
       padding: 20px;
     }
+
+    h1 {
+      color: #c0392b;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
     h2 {
       color: #2c3e50;
       border-bottom: 2px solid #ccc;
       padding-bottom: 5px;
     }
+
     .section {
       background: #fff;
       padding: 20px;
@@ -23,9 +31,11 @@
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
+
     label {
       font-weight: bold;
     }
+
     input[type="text"],
     textarea {
       width: 100%;
@@ -35,73 +45,81 @@
       border-radius: 4px;
       box-sizing: border-box;
     }
+
     .engineer-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
     }
-    .print-area {
-      padding: 10px;
-      background: #f1f1f1;
-      margin-top: 10px;
-      border-radius: 5px;
-      font-family: monospace;
+
+    #exportArea {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
     }
-    #downloadBtn {
+
+    .export-btn {
       display: block;
-      margin: 0 auto;
-      margin-top: 20px;
-      padding: 12px 24px;
-      font-size: 16px;
-      background-color: #4CAF50;
+      margin: 20px auto;
+      background-color: #27ae60;
       color: white;
+      padding: 10px 20px;
       border: none;
-      border-radius: 6px;
+      border-radius: 5px;
       cursor: pointer;
     }
-    #downloadBtn:hover {
-      background-color: #45a049;
+
+    .note {
+      font-family: monospace;
+      background-color: #efefef;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      white-space: pre-wrap;
     }
   </style>
 </head>
-<body>
-  <div id="formContent">
-    <div class="section">
-      <h2>🧪 模擬特徵值</h2>
-      <div class="print-area">
-        mean radius: 13.54<br>
-        mean texture: 14.36<br>
-        mean perimeter: 87.46<br>
-        mean area: 566.3<br>
-        mean smoothness: 0.09779<br>
-        mean compactness: 0.08129<br>
-        mean concavity: 0.06664<br>
-        mean concave points: 0.04781<br>
-        mean symmetry: 0.1885<br>
-        mean fractal dimension: 0.05766<br>
-        radius error: 0.2699<br>
-        texture error: 0.7886<br>
-        perimeter error: 2.058<br>
-        area error: 23.56<br>
-        smoothness error: 0.008462<br>
-        compactness error: 0.0146<br>
-        concavity error: 0.02387<br>
-        concave points error: 0.01315<br>
-        symmetry error: 0.0188<br>
-        fractal dimension error: 0.0023<br>
-        worst radius: 15.11<br>
-        worst texture: 19.26<br>
-        worst perimeter: 99.7<br>
-        worst area: 711.2<br>
-        worst smoothness: 0.1251<br>
-        worst compactness: 0.1455<br>
-        worst concavity: 0.2398<br>
-        worst concave points: 0.1288<br>
-        worst symmetry: 0.2977<br>
-        worst fractal dimension: 0.0775
-      </div>
-    </div>
 
+<body>
+  <h1>乳癌病例診斷</h1>
+
+  <!-- 模擬特徵值區塊（僅供參考，不匯出） -->
+  <div class="section note">
+    <h2>🧪 病人腫瘤之特徵值</h2>
+    mean radius: 13.54
+    mean texture: 14.36
+    mean perimeter: 87.46
+    mean area: 566.3
+    mean smoothness: 0.09779
+    mean compactness: 0.08129
+    mean concavity: 0.06664
+    mean concave points: 0.04781
+    mean symmetry: 0.1885
+    mean fractal dimension: 0.05766
+    radius error: 0.2699
+    texture error: 0.7886
+    perimeter error: 2.058
+    area error: 23.56
+    smoothness error: 0.008462
+    compactness error: 0.0146
+    concavity error: 0.02387
+    concave points error: 0.01315
+    symmetry error: 0.0188
+    fractal dimension error: 0.0023
+    worst radius: 15.11
+    worst texture: 19.26
+    worst perimeter: 99.7
+    worst area: 711.2
+    worst smoothness: 0.1251
+    worst compactness: 0.1455
+    worst concavity: 0.2398
+    worst concave points: 0.1288
+    worst symmetry: 0.2977
+    worst fractal dimension: 0.0775
+  </div>
+
+  <!-- 匯出區域 -->
+  <div id="exportArea">
     <div class="section">
       <h2>🔧 建立模型設定</h2>
       <label>使用特徵數量：</label>
@@ -121,7 +139,7 @@
     </div>
 
     <div class="section">
-      <h2>👩‍💻 責任工程師姓名（最多四位）</h2>
+      <h2>👩‍💻 負責工程師姓名（最多四位）</h2>
       <div class="engineer-grid">
         <input type="text" placeholder="工程師姓名 1">
         <input type="text" placeholder="工程師姓名 2">
@@ -131,19 +149,20 @@
     </div>
   </div>
 
-  <button id="downloadBtn">📄 匯出為 PDF</button>
+  <button class="export-btn" id="downloadImageBtn">🖼️ 匯出為圖片</button>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script>
-    document.getElementById("downloadBtn").addEventListener("click", () => {
-      const element = document.getElementById("formContent");
-      html2pdf().set({
-        margin: 0.5,
-        filename: '乳癌_病歷表.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-      }).from(element).save();
+    document.getElementById("downloadImageBtn").addEventListener("click", () => {
+      html2canvas(document.getElementById("exportArea"), { scale: 2 }).then(canvas => {
+        const link = document.createElement("a");
+        link.download = '乳癌病例診斷.png';
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      });
     });
   </script>
 </body>
+
 </html>
+
