@@ -39,11 +39,21 @@
     input[type="text"],
     textarea {
       width: 100%;
-      padding: 8px;
-      margin: 8px 0;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+      min-height: 40px;
+      line-height: 1.5;
       border: 1px solid #ccc;
       border-radius: 4px;
       box-sizing: border-box;
+      resize: vertical;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    textarea {
+      min-height: 100px;
     }
 
     .engineer-grid {
@@ -125,7 +135,7 @@
       <label>使用特徵數量：</label>
       <input type="text" placeholder="例如：5">
       <label>使用哪些特徵值？</label>
-      <textarea rows="3" placeholder="請列出選用的特徵名稱，例如：mean radius, mean area..."></textarea>
+      <textarea rows="4" placeholder="請列出選用的特徵名稱，例如：mean radius, mean area..."></textarea>
       <label>模型準確率：</label>
       <input type="text" placeholder="例如：0.92">
     </div>
@@ -135,7 +145,7 @@
       <label>模型預測的結果為：</label>
       <input type="text" placeholder="良性 / 惡性">
       <label>請根據醫學理論，推論特徵值為何能作為判斷：</label>
-      <textarea rows="4"></textarea>
+      <textarea rows="6"></textarea>
     </div>
 
     <div class="section">
@@ -165,4 +175,5 @@
 </body>
 
 </html>
+
 
