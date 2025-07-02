@@ -1,113 +1,135 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
   <meta charset="UTF-8">
-  <title>乳腺癌 KNN 學習單</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>乳癌判斷病歷表</title>
   <style>
     body {
-      font-family: "Arial", sans-serif;
-      padding: 20px;
+      font-family: "Microsoft JhengHei", sans-serif;
       background-color: #f9f9f9;
+      padding: 20px;
     }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    h1 {
+      color: #c0392b;
+      text-align: center;
+      margin-bottom: 30px;
     }
+
     h2 {
       color: #2c3e50;
-      margin-top: 40px;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
     }
+
+    .section {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
     label {
-      display: block;
-      margin: 10px 0 5px;
       font-weight: bold;
     }
-    input, textarea, select {
+
+    input[type="text"],
+    textarea {
       width: 100%;
       padding: 8px;
-      margin-bottom: 15px;
+      margin: 8px 0;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 4px;
+      box-sizing: border-box;
     }
-    .row {
-      display: flex;
-      justify-content: space-between;
+
+    .engineer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: 10px;
     }
-    .row input {
-      width: 100%;
-    }
-    button {
-      background-color: #4CAF50;
-      color: white;
-      padding: 10px 16px;
-      border: none;
+
+    .print-area {
+      padding: 10px;
+      background: #f1f1f1;
+      margin-top: 10px;
       border-radius: 5px;
-      font-size: 16px;
-      margin-top: 20px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #45a049;
+      font-family: monospace;
+      white-space: pre-wrap;
     }
   </style>
 </head>
+
 <body>
-<div class="container">
-  <h1>乳腺癌 KNN 模型診斷報告</h1>
+  <h1>乳癌判斷病歷表</h1>
 
-  <h2>一、工程師姓名</h2>
-  <div class="row">
-    <input type="text" placeholder="工程師 1">
-    <input type="text" placeholder="工程師 2">
+  <div class="section">
+    <h2>🧪 模擬特徵值</h2>
+    <div class="print-area">
+mean radius: 13.54
+mean texture: 14.36
+mean perimeter: 87.46
+mean area: 566.3
+mean smoothness: 0.09779
+mean compactness: 0.08129
+mean concavity: 0.06664
+mean concave points: 0.04781
+mean symmetry: 0.1885
+mean fractal dimension: 0.05766
+radius error: 0.2699
+texture error: 0.7886
+perimeter error: 2.058
+area error: 23.56
+smoothness error: 0.008462
+compactness error: 0.0146
+concavity error: 0.02387
+concave points error: 0.01315
+symmetry error: 0.0188
+fractal dimension error: 0.0023
+worst radius: 15.11
+worst texture: 19.26
+worst perimeter: 99.7
+worst area: 711.2
+worst smoothness: 0.1251
+worst compactness: 0.1455
+worst concavity: 0.2398
+worst concave points: 0.1288
+worst symmetry: 0.2977
+worst fractal dimension: 0.0775
+    </div>
   </div>
-  <div class="row">
-    <input type="text" placeholder="工程師 3">
-    <input type="text" placeholder="工程師 4">
+
+  <div class="section">
+    <h2>🔧 建立模型設定</h2>
+    <label>使用特徵數量：</label>
+    <input type="text" placeholder="例如：5">
+    <label>使用哪些特徵值？</label>
+    <textarea rows="3" placeholder="請列出選用的特徵名稱，例如：mean radius, mean area..."></textarea>
+    <label>模型準確率：</label>
+    <input type="text" placeholder="例如：0.92">
   </div>
 
-  <h2>二、模擬病例（請抄寫系統提供之病人特徵值）</h2>
-  <textarea rows="6" placeholder="請輸入模擬病人的特徵值，例如：mean radius = 14.5, mean texture = 20.1..."></textarea>
+  <div class="section">
+    <h2>🔍 判斷結果</h2>
+    <label>模型預測的結果為：</label>
+    <input type="text" placeholder="良性 / 惡性">
+    <label>請根據醫學理論，推論特徵值為何能作為判斷：</label>
+    <textarea rows="4"></textarea>
+  </div>
 
-  <h2>三、你建立的模型樣式</h2>
-  <label for="features">選用的特徵值：</label>
-  <textarea id="features" rows="3" placeholder="例如：mean radius, mean smoothness..."></textarea>
-
-  <label for="kvalue">選用的 K 值：</label>
-  <input id="kvalue" type="number" min="1" placeholder="請輸入 K 值 (例如：3)">
-
-  <h2>四、診斷結果與說明</h2>
-  <label for="result">KNN 模型判定結果：</label>
-  <select id="result">
-    <option>陽性（惡性）</option>
-    <option>陰性（良性）</option>
-  </select>
-
-  <label for="reasoning">請根據特徵推論模型為何得出此判斷：</label>
-  <textarea id="reasoning" rows="4" placeholder="例如：病人 mean concavity 數值偏高，可能與惡性腫瘤相關..."></textarea>
-
-  <button id="downloadBtn">📄 匯出為 PDF</button>
-</div>
-
-<script>
-  document.getElementById("downloadBtn").addEventListener("click", () => {
-    const element = document.querySelector(".container");
-    html2pdf()
-      .set({
-        margin: 0.5,
-        filename: '乳腺癌_KNN_學習單.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-      })
-      .from(element)
-      .save();
-  });
-</script>
+  <div class="section">
+    <h2>👩‍💻 負責工程師姓名（最多四位）</h2>
+    <div class="engineer-grid">
+      <input type="text" placeholder="工程師姓名 1">
+      <input type="text" placeholder="工程師姓名 2">
+      <input type="text" placeholder="工程師姓名 3">
+      <input type="text" placeholder="工程師姓名 4">
+    </div>
+  </div>
 </body>
+
 </html>
+
