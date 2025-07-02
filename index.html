@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>乳腺癌 KNN 學習單</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    body {
+      font-family: "Arial", sans-serif;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      color: #2c3e50;
+      margin-top: 40px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .row input {
+      width: 100%;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>乳腺癌 KNN 模型診斷報告</h1>
+
+  <h2>一、工程師姓名</h2>
+  <div class="row">
+    <input type="text" placeholder="工程師 1">
+    <input type="text" placeholder="工程師 2">
+  </div>
+  <div class="row">
+    <input type="text" placeholder="工程師 3">
+    <input type="text" placeholder="工程師 4">
+  </div>
+
+  <h2>二、模擬病例（請抄寫系統提供之病人特徵值）</h2>
+  <textarea rows="6" placeholder="請輸入模擬病人的特徵值，例如：mean radius = 14.5, mean texture = 20.1..."></textarea>
+
+  <h2>三、你建立的模型樣式</h2>
+  <label for="features">選用的特徵值：</label>
+  <textarea id="features" rows="3" placeholder="例如：mean radius, mean smoothness..."></textarea>
+
+  <label for="kvalue">選用的 K 值：</label>
+  <input id="kvalue" type="number" min="1" placeholder="請輸入 K 值 (例如：3)">
+
+  <h2>四、診斷結果與說明</h2>
+  <label for="result">KNN 模型判定結果：</label>
+  <select id="result">
+    <option>陽性（惡性）</option>
+    <option>陰性（良性）</option>
+  </select>
+
+  <label for="reasoning">請根據特徵推論模型為何得出此判斷：</label>
+  <textarea id="reasoning" rows="4" placeholder="例如：病人 mean concavity 數值偏高，可能與惡性腫瘤相關..."></textarea>
+
+  <button id="downloadBtn">📄 匯出為 PDF</button>
+</div>
+
+<script>
+  document.getElementById("downloadBtn").addEventListener("click", () => {
+    const element = document.querySelector(".container");
+    html2pdf()
+      .set({
+        margin: 0.5,
+        filename: '乳腺癌_KNN_學習單.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      })
+      .from(element)
+      .save();
+  });
+</script>
+</body>
+</html>
